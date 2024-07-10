@@ -8,3 +8,4 @@ port and adapters
 Event Sourcing
 CQRS
 service discovery / apim
+elk

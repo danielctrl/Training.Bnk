@@ -1,4 +1,4 @@
-# bnk Leaning Project
+# bnk Learning Project
 
 
 ## Objective
@@ -7,7 +7,7 @@ This project is intended to be used as a project where I can practice some tech/
 
 - DDD
 - Transactional Outbox
-- Microservice (at least 2 services + 1 to query aggregated data >> API Composition or CQRS)
+- Distributed Transactions :: Saga (at least 2 microservice + 1 service to query aggregated data >> API Composition or CQRS)
 - Port and adapters
 - Event Sourcing
 - CQRS
@@ -102,4 +102,5 @@ This project is intended to be used as a project where I can practice some tech/
 
 ## Relevant info for developing:
 - https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
+- https://enterprisecraftsmanship.com/
 

@@ -13,6 +13,7 @@ This project is intended to be used as a project where I can practice some tech/
 - CQRS
 - Service discovery / apim
 - Elk
+- Api versioning
 
 - ---
 ## Domain

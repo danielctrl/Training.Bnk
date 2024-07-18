@@ -20,7 +20,7 @@ This project is intended to be used as a project where I can practice some tech/
 
 1. **Account Management**
     - **Features**
-      - **Account Creation:**
+      - __Account Creation:__
           - Types of accounts (checking, savings, investment).
           - Initial data such as balance, credit limit, etc.
       - **Account Deletion and Update:**
@@ -36,7 +36,7 @@ This project is intended to be used as a project where I can practice some tech/
         - AccountDeletedEvent
     - Entities
       - Account
-         - Properties: AccountId, AccountType, Balance, CreditLimit, CreationDate, UpdateDate
+         - Properties: AccountId, AccountType, Balance, CreditLimit, CreationDate, UpdateDate, AccountOwner
          - Methods: CreateAccount, UpdateAccount, DeleteAccount, CheckBalance
     - Aggregates
       - AccountAggregate
@@ -45,6 +45,8 @@ This project is intended to be used as a project where I can practice some tech/
     - Value Objects
       - AccountType
         - Types: Checking, Savings, Investment
+      - AccountNumber
+        - Properties: AccountNumber, AccountDigit
       - Balance
         - Properties: Amount, Currency
       - CreditLimit
@@ -99,8 +101,12 @@ This project is intended to be used as a project where I can practice some tech/
 
 - Different dbs for writting and querying (CQRS) 
 
+---
 
+## Todos:
+- Use UUID v7 when natively available on transactions aggregate
 
+---
 ## Relevant info for developing:
 - https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
 - https://enterprisecraftsmanship.com/

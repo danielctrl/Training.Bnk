@@ -1,7 +1,12 @@
-﻿namespace Account.Domain.Aggregate;
+﻿using Account.Domain.Common;
 
-public enum AccountType
+namespace Account.Domain.Aggregate;
+
+public class AccountType : Enumeration
 {
-    Savings = 0,
-    Current = 1
+    public static readonly AccountType Savings = new(1, "Savings");
+    public static readonly AccountType Current = new(1, "Current");
+
+    private AccountType(int id, string name) : base(id, name)
+    { }
 }

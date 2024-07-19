@@ -2,7 +2,8 @@
 
 namespace Account.Domain.Common;
 
-internal class Enumeration : IComparable
+// ToDo: Document it >> https://www.nuget.org/packages/Ardalis.SmartEnum/
+public class Enumeration : IComparable
 {
     public string Name { get; private set; }
 

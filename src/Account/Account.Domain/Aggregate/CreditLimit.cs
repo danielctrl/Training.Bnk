@@ -1,5 +1,19 @@
-﻿namespace Account.Domain.Aggregate;
+﻿using Account.Domain.Common;
 
-public class CreditLimit
+namespace Account.Domain.Aggregate;
+
+public class CreditLimit : ValueObject
 {
+    public decimal Limit { get; }
+
+    public CreditLimit(decimal limit)
+    {
+        if (limit < 0)
+            throw new InvalidOperationException("Credit limit cannot be negative");
+    }
+
+    protected override IEnumerable<object> GetEqualityComponents()
+    {
+        yield return Limit;
+    }
 }

@@ -1,0 +1,10 @@
+﻿@Account.Api_HostAddress = https://localhost:27100
+@id=1
+
+# There is a version configured on querystring and url segment. Pick just one of them
+
+GET {{Account.Api_HostAddress}}/api/v1.0/accounts/{{id}}?api-version=1.0
+
+
+
+###

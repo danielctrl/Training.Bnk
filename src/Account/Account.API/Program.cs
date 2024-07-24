@@ -1,15 +1,22 @@
+using Account.Api.Extensions;
 using Account.API.API;
+using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder();
+var services = builder.Services;
 
 // Minimal api
-builder.Services.AddEndpointsApiExplorer();
+services.AddEndpointsApiExplorer();
 
 // Swagger open API
-builder.Services.AddSwaggerGen();
+services.AddSwaggerGen();
 
 // Api versioning
-builder.Services.AddApiVersioning(options => options.ReportApiVersions = true)
+services.AddApiVersioning(options =>
+    {
+        options.ReportApiVersions = true;
+        options.ApiVersionReader = ApiVersionReader.Combine(new UrlSegmentApiVersionReader());
+    })
     .AddApiExplorer(options =>
     {
         options.GroupNameFormat = "'v'VVV";
@@ -17,8 +24,9 @@ builder.Services.AddApiVersioning(options => options.ReportApiVersions = true)
     });
 
 // Add services
-// ...
-// ...
+services
+    .AddAccountApplicationServices(builder.Configuration)
+    .AddAccountOptions(builder.Configuration);
 
 var app = builder.Build();
 

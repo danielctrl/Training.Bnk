@@ -8,6 +8,7 @@ This project is intended to be used as a project where I can practice some tech/
 - DDD
 - Transactional Outbox
 - Distributed Transactions :: Saga (at least 2 microservice + 1 service to query aggregated data >> API Composition or CQRS)
+- Event Based Architecture
 - Port and adapters
 - Event Sourcing
 - CQRS

@@ -4,14 +4,17 @@ namespace Account.Domain.Aggregate;
 
 public class Balance : ValueObject
 {
-    public decimal Value { get; }
+    public decimal? Value { get; }
 
-    public Balance(decimal value)
+    public DateTime? LastUpdated { get; }
+
+    public Balance(decimal? value, DateTime? lastUpdated)
     {
         Value = value;
+        LastUpdated = lastUpdated;
     }
 
-    protected override IEnumerable<object> GetEqualityComponents()
+    protected override IEnumerable<object?> GetEqualityComponents()
     {
         yield return Value;
     }

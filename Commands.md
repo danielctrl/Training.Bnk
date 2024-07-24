@@ -14,6 +14,8 @@ dotnet tool install --global dotnet-ef
 
 dotnet ef migrations add --startup-project ../Account.Api MigrationName
 dotnet ef database update --startup-project ../Account.Api
+dotnet ef migrations remove --startup-project ../Account.Api
+
 ```
 
 Assembly 'Account.Infrastructure' uses 'Microsoft.EntityFrameworkCore, Version=8.0.7.0'

@@ -15,7 +15,7 @@ namespace Account.UnitTests
 
     public class Asd : ValueObject
     {
-        protected override IEnumerable<object> GetEqualityComponents()
+        protected override IEnumerable<object?> GetEqualityComponents()
         {
             yield return 1;
             yield return 2;

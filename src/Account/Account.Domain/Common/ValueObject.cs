@@ -2,7 +2,7 @@
 
 public abstract class ValueObject
 {
-    protected abstract IEnumerable<object> GetEqualityComponents();
+    protected abstract IEnumerable<object?> GetEqualityComponents();
 
     public static bool operator ==(ValueObject left, ValueObject right)
     {

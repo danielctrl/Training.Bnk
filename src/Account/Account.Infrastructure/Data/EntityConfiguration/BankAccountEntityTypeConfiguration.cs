@@ -10,6 +10,7 @@ public class BankAccountEntityTypeConfiguration : IEntityTypeConfiguration<BankA
     {
         bankAccountTypeBuilder.ToTable("BankAccounts");
 
+
         bankAccountTypeBuilder.HasKey(x => x.Id);
         
         bankAccountTypeBuilder.Property(x => x.Id)
@@ -17,36 +18,48 @@ public class BankAccountEntityTypeConfiguration : IEntityTypeConfiguration<BankA
             .HasMaxLength(26)
             .IsRequired();
 
-        // A FK column will be created
+
+        // A FK column will be created automaticaly
         bankAccountTypeBuilder.HasOne(acc => acc.AccountType)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
 
 
+        bankAccountTypeBuilder.OwnsOne(acc => acc.AccountOwner,
+            ao => ao.Property(x => x.Name)
+                .HasColumnName("AccountOwnerName")
+                .HasMaxLength(1000)
+                .IsRequired());
 
 
+        bankAccountTypeBuilder.Property(x => x.CreationDate)
+            .HasColumnName("CreationDate")
+            .IsRequired();
 
 
-        ////Do it
-        //bankAccountTypeBuilder.Property(x => x.AccountOwner)
-        //    .HasColumnName("AccountOwner")
-        //    .HasMaxLength(1000)
-        //    .IsRequired();
-        ////Do it
-        //bankAccountTypeBuilder.Property(x => x.CreationDate)
-        //    .HasColumnName("CreationDate")
-        //    .IsRequired();
-        ////Do it
-        //bankAccountTypeBuilder.Property(x => x.AccountNumber)
-        //    .HasColumnName("AccountNumber")
-        //    .IsRequired();
-        ////Do it
-        //bankAccountTypeBuilder.Property(x => x.Balance)
-        //    .HasColumnName("Balance")
-        //    .IsRequired();
-        ////Do it
-        //bankAccountTypeBuilder.Property(x => x.CreditLimit)
-        //    .HasColumnName("CreditLimit")
-        //    .IsRequired();
+        bankAccountTypeBuilder.OwnsOne(acc => acc.AccountNumber,
+            an => an.Property(x => x.Number)
+                .HasColumnName("AccountNumber")
+                .HasMaxLength(12)
+                .IsRequired());
+
+
+        bankAccountTypeBuilder.OwnsOne(acc => acc.Balance, balance =>
+        {
+            balance.Property(x => x.Value)
+                .HasColumnName("Balance")
+                .IsRequired(false);
+
+            balance.Property(x => x.LastUpdated)
+                .HasColumnName("BalanceLastUpdated")
+                .IsRequired(false);
+        });
+
+
+        bankAccountTypeBuilder.OwnsOne(acc => acc.CreditLimit,
+            cl => cl.Property(x => x.Value)
+                .HasColumnName("CreditLimit")
+                .IsRequired(false)
+        );
     }
 }

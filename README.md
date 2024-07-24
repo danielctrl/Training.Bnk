@@ -14,7 +14,13 @@ This project is intended to be used as a project where I can practice some tech/
 - Service discovery / apim
 - Elk
 - Api versioning
+- grpc
 
+- Expand:
+  - OpenApi, OpenTelelemetry, OpenTracing, OpenMetrics, OpenID
+
+- Try?
+  - Aspire
 - ---
 ## Domain
 

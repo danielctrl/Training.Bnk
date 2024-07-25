@@ -16,12 +16,12 @@ public sealed class BankAccount : Entity, IAggregateRoot
 
     public CreditLimit CreditLimit { get; private set; }
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning disable CS8618
     private BankAccount()
     {
         // Required by EF
     }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+#pragma warning restore CS8618
 
     public BankAccount(Ulid id, AccountType accountType, AccountOwner accountOwner, DateTime creationDate, AccountNumber accountNumber, Balance balance, CreditLimit creditLimit)
     {

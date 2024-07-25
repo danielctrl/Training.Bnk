@@ -1,6 +1,6 @@
 ﻿namespace Account.Domain.Common
 {
-    internal interface IAggregateRoot
+    public interface IAggregateRoot
     {
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Account.Infrastructure.Repositories;
 
-internal class BankAccountRepository : IBankAccountRepository
+public sealed class BankAccountRepository : IBankAccountRepository
 {
     public IUnitOfWork UnitOfWork => _context;
     private readonly AccountDbContext _context;
@@ -15,9 +15,9 @@ internal class BankAccountRepository : IBankAccountRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<BankAccount> AddAsync(BankAccount bankAccount)
+    public BankAccount Add(BankAccount bankAccount)
     {
-        var entityEntry = await _context.BankAccounts.AddAsync(bankAccount);
+        var entityEntry = _context.BankAccounts.Add(bankAccount);
         return entityEntry.Entity;
     }
 
@@ -26,12 +26,12 @@ internal class BankAccountRepository : IBankAccountRepository
         return _context.BankAccounts.Remove(bankAccount).Entity;
     }
 
-    public Task<BankAccount?> GetByIdAsync(Ulid id)
+    public Task<BankAccount?> GetByIdAsync(Ulid id, CancellationToken cancellationToken)
     {
         return _context.BankAccounts
             .Include(ba => ba.AccountOwner)
             .Where(ba => ba.Id == id)
-            .SingleOrDefaultAsync();
+            .SingleOrDefaultAsync(cancellationToken);
     }
 
     public BankAccount Update(BankAccount bankAccount)

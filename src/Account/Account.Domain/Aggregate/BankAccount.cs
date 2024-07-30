@@ -1,4 +1,5 @@
 ﻿using Account.Domain.Common;
+using Account.Domain.Services;
 
 namespace Account.Domain.Aggregate;
 
@@ -35,18 +36,20 @@ public sealed class BankAccount : Entity, IAggregateRoot
     }
 #pragma warning restore CS8618
 
-    public BankAccount(Ulid id, AccountType accountType, AccountOwner accountOwner, DateTime creationDate, AccountNumber accountNumber, Balance balance, CreditLimit creditLimit)
+    public BankAccount(AccountType accountType, string accountOwnerName)
     {
-        Id = id;
+        Id = Ulid.NewUlid();
 
         _accountTypeId = accountType.Id;
         AccountType = accountType;
 
-        AccountOwner = accountOwner;
-        CreationDate = creationDate;
-        AccountNumber = accountNumber;
-        Balance = balance;
-        CreditLimit = creditLimit;
+        AccountNumber = AccountNumberFactory.CreateAccountNumber(accountType);
+        CreationDate = DateTime.UtcNow;
+
+        AccountOwner = new AccountOwner(accountOwnerName);
+
+        Balance = new Balance(null, null);
+        CreditLimit = new CreditLimit(null);
     }
 
     //Events // Methods

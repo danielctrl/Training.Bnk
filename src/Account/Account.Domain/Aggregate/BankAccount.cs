@@ -4,7 +4,19 @@ namespace Account.Domain.Aggregate;
 
 public sealed class BankAccount : Entity, IAggregateRoot
 {
-    public AccountType AccountType { get; private set; }
+    private readonly int _accountTypeId;
+
+    private AccountType? _accountType;
+    public AccountType AccountType
+    {
+        get
+        {
+            _accountType ??= Enumeration.FromValue<AccountType>(_accountTypeId);
+
+            return _accountType;
+        }
+        private set { _accountType = value; }
+    }
 
     public AccountOwner AccountOwner { get; private set; }
 
@@ -26,7 +38,10 @@ public sealed class BankAccount : Entity, IAggregateRoot
     public BankAccount(Ulid id, AccountType accountType, AccountOwner accountOwner, DateTime creationDate, AccountNumber accountNumber, Balance balance, CreditLimit creditLimit)
     {
         Id = id;
+
+        _accountTypeId = accountType.Id;
         AccountType = accountType;
+
         AccountOwner = accountOwner;
         CreationDate = creationDate;
         AccountNumber = accountNumber;

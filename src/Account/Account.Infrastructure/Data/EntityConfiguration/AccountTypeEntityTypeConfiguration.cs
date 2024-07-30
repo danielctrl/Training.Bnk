@@ -1,4 +1,5 @@
 ﻿using Account.Domain.Aggregate;
+using Account.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,5 +18,9 @@ public class AccountTypeEntityTypeConfiguration : IEntityTypeConfiguration<Accou
         builder.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(200);
+
+        builder.HasData(
+            Enumeration.GetAll<AccountType>()
+        );
     }
 }

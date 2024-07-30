@@ -17,12 +17,26 @@ public class BankAccountEntityTypeConfiguration : IEntityTypeConfiguration<BankA
             .HasColumnName("Id")
             .HasMaxLength(26)
             .IsRequired();
+        
 
+        bankAccountTypeBuilder.Property("_accountTypeId")
+            .HasColumnName("AccountTypeId")
+            .IsRequired();
 
-        // A FK column will be created automaticaly
         bankAccountTypeBuilder.HasOne(acc => acc.AccountType)
             .WithMany()
+            .HasForeignKey("_accountTypeId")
             .OnDelete(DeleteBehavior.Restrict);
+        /*
+        Bank account type navigation property has to be ignored, once it should never adds a new value to that table.
+        It has to be manually fed given the value o the FK
+            The alternavies would be to:
+            - just use the int FK on BankAccount model
+            - to ignore the navigation property, without manual feeding it (what would the reading operation to no fill the property, just the FK)
+            - to check always on SaveChanges if the AccountType entity was added, to change it to Unchanged
+        */
+        bankAccountTypeBuilder.Ignore("_accountType");
+        bankAccountTypeBuilder.Ignore(acc => acc.AccountType);
 
 
         bankAccountTypeBuilder.OwnsOne(acc => acc.AccountOwner,

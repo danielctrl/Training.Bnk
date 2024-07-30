@@ -29,7 +29,6 @@ public sealed class BankAccountRepository : IBankAccountRepository
     public Task<BankAccount?> GetByIdAsync(Ulid id, CancellationToken cancellationToken)
     {
         return _context.BankAccounts
-            .Include(ba => ba.AccountOwner)
             .Where(ba => ba.Id == id)
             .SingleOrDefaultAsync(cancellationToken);
     }

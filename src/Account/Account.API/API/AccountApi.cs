@@ -1,7 +1,9 @@
 ﻿using Account.Api.Dto;
 using Account.Api.Options;
 using Account.Api.Services;
+using Account.Domain.Aggregate;
 using Account.Domain.Exceptions;
+using Account.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -15,7 +17,7 @@ public static class AccountApi
         var api = app.MapGroup("api/v{version:apiVersion}/accounts")
             .HasApiVersion(1.0);
 
-        api.MapGet("/{id:int}", GetAccountAsync);
+        api.MapGet("/{id}", GetAccountAsync);
         api.MapPost("/", CreateAccountAsync);
 
         return app;
@@ -44,13 +46,13 @@ public static class AccountApi
         }
     }
 
-    public static async Task<Results<Ok<string>, BadRequest<string>>> GetAccountAsync(int id, [FromServices] IOptions<FooOptions> fooOptions)
+    public static async Task<Results<Ok<BankAccount>, BadRequest<string>>> GetAccountAsync(Ulid id, IBankAccountRepository bankAccountRepository, [FromServices] IOptions<FooOptions> fooOptions, CancellationToken cancellationToken)
     {
-        await Task.Yield();
+        if (id == default)
+            return TypedResults.BadRequest("Id cannot be empty");
 
-        if (id == 0)
-            return TypedResults.BadRequest("Id cannot be 0");
+        var bankAccount = await bankAccountRepository.GetByIdAsync(id, cancellationToken);
 
-        return TypedResults.Ok("This is a valid account");
+        return TypedResults.Ok(bankAccount);
     }
 }

@@ -27,7 +27,15 @@ public class AccountTypeConverter : JsonConverter<AccountType>
 
     public override void Write(Utf8JsonWriter writer, AccountType value, JsonSerializerOptions options)
     {
-        writer.WriteNumberValue(value.Id);
-        writer.WriteStringValue(value.Name);
+        if (value == null)
+        {
+            writer.WriteNullValue();
+            return;
+        }
+
+        writer.WriteStartObject();
+        writer.WriteNumber(nameof(AccountType.Id), value.Id);
+        writer.WriteString(nameof(AccountType.Name), value.Name);
+        writer.WriteEndObject();
     }
 }

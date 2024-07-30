@@ -12,12 +12,12 @@ public class BankAccountEntityTypeConfiguration : IEntityTypeConfiguration<BankA
 
 
         bankAccountTypeBuilder.HasKey(x => x.Id);
-        
+
         bankAccountTypeBuilder.Property(x => x.Id)
             .HasColumnName("Id")
             .HasMaxLength(26)
             .IsRequired();
-        
+
 
         bankAccountTypeBuilder.Property("_accountTypeId")
             .HasColumnName("AccountTypeId")

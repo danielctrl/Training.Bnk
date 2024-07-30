@@ -46,7 +46,7 @@ public class Enumeration : IComparable
 
     public int CompareTo(object? obj)
     {
-        if(obj is null) return 1;
+        if (obj is null) return 1;
 
         return Id.CompareTo(((Enumeration)obj).Id);
     }

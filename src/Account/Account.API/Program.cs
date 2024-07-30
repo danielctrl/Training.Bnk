@@ -1,5 +1,5 @@
-using Account.Api.Extensions;
 using Account.Api.Api;
+using Account.Api.Extensions;
 using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder();

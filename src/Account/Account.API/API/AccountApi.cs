@@ -3,7 +3,6 @@ using Account.Api.Options;
 using Account.Api.Services;
 using Account.Domain.Aggregate;
 using Account.Domain.Exceptions;
-using Account.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

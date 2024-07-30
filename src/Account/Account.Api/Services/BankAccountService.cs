@@ -1,7 +1,6 @@
 ﻿using Account.Api.Dto;
 using Account.Domain.Aggregate;
 using Account.Domain.Services;
-using Account.Infrastructure.Repositories;
 
 namespace Account.Api.Services
 {

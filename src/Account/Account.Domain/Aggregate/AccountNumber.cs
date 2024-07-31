@@ -1,14 +1,15 @@
-﻿using System.Text.RegularExpressions;
+﻿using Account.Domain.Common;
+using System.Text.RegularExpressions;
 
 namespace Account.Domain.Aggregate;
 
-public class AccountNumber
+public class AccountNumber : ValueObject
 {
     public string Number { get; }
 
     private static readonly Regex AccountNumberValidCharactersRegex = new("^[0-9]", RegexOptions.Compiled);
 
-    public AccountNumber(string number)
+    internal AccountNumber(string number)
     {
         Number = number;
 
@@ -22,5 +23,10 @@ public class AccountNumber
             throw new AccountDomainException("Invalid account number, It must contain only digits.");
 
         Number = number;
+    }
+
+    protected override IEnumerable<object?> GetEqualityComponents()
+    {
+        yield return Number;
     }
 }

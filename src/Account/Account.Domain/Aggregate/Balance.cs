@@ -8,7 +8,7 @@ public class Balance : ValueObject
 
     public DateTime? LastUpdated { get; }
 
-    public Balance(decimal? value, DateTime? lastUpdated)
+    internal Balance(decimal? value, DateTime? lastUpdated)
     {
         Value = value;
         LastUpdated = lastUpdated;

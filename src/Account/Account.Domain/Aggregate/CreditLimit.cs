@@ -6,7 +6,7 @@ public class CreditLimit : ValueObject
 {
     public decimal? Value { get; }
 
-    public CreditLimit(decimal? value)
+    internal CreditLimit(decimal? value)
     {
         if (value < 0)
             throw new InvalidOperationException("Credit limit cannot be negative");

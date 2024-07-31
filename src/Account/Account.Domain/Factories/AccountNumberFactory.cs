@@ -16,12 +16,13 @@ public static class AccountNumberFactory
 
         var accountNumberSufix = new Random().Next(1000000, 9999999);
 
-        var sb = new StringBuilder();
-        sb.Append(accountPrefix);
-        sb.Append(reservedDigits);
-        sb.Append(accountNumberSufix);
+        var finalNumber = new StringBuilder()
+            .Append(accountPrefix)
+            .Append(reservedDigits)
+            .Append(accountNumberSufix)
+            .ToString();
 
-        return new AccountNumber(sb.ToString());
+        return new AccountNumber(finalNumber);
     }
 
     private static string GetAccountTypePrefix(AccountType accountType)

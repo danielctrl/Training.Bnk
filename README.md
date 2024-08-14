@@ -1,4 +1,4 @@
-# bnk Learning Project
+# Training.Bnk Learning Project
 
 
 ## Objective

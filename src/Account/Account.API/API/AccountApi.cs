@@ -16,10 +16,22 @@ public static class AccountApi
         var api = app.MapGroup("api/v{version:apiVersion}/accounts")
             .HasApiVersion(1.0);
 
-        api.MapGet("/{id}", GetAccountAsync);
+        api.MapGet("/{id:regex(^[a-zA-Z0-9]{{26}}$)}", GetAccountAsync);
         api.MapPost("/", CreateAccountAsync);
+        api.MapDelete("/{id:regex(^[a-zA-Z0-9]{{26}}$)}", DeleteAccountAsync);
+        api.MapPatch("/{id:regex(^[a-zA-Z0-9]{{26}}$)}/accountType", UpdateAccountTypeAsync);
 
         return app;
+    }
+
+    public static async Task<Results<Ok<BankAccount>, NotFound, BadRequest<string>>> GetAccountAsync(Ulid id, IBankAccountRepository bankAccountRepository, [FromServices] IOptions<FooOptions> fooOptions, CancellationToken cancellationToken)
+    {
+        if (id == default)
+            return TypedResults.BadRequest("Id cannot be empty");
+
+        var bankAccount = await bankAccountRepository.GetByIdAsync(id, cancellationToken);
+
+        return TypedResults.Ok(bankAccount);
     }
 
     public static async Task<Results<Ok<Ulid>, BadRequest>> CreateAccountAsync(CreateAccountRequest createAccountRequest, BankAccountService bankAccountService, ILoggerFactory loggerFactory, CancellationToken cancellationToken)
@@ -45,13 +57,17 @@ public static class AccountApi
         }
     }
 
-    public static async Task<Results<Ok<BankAccount>, BadRequest<string>>> GetAccountAsync(Ulid id, IBankAccountRepository bankAccountRepository, [FromServices] IOptions<FooOptions> fooOptions, CancellationToken cancellationToken)
+    public static async Task<Results<Ok, NotFound>> DeleteAccountAsync(Ulid id, CancellationToken cancellationToken)
     {
-        if (id == default)
-            return TypedResults.BadRequest("Id cannot be empty");
+        await Task.Yield();
 
-        var bankAccount = await bankAccountRepository.GetByIdAsync(id, cancellationToken);
+        return TypedResults.Ok();
+    }
 
-        return TypedResults.Ok(bankAccount);
+    public static async Task<Results<Ok, NotFound, BadRequest>> UpdateAccountTypeAsync(Ulid id, CancellationToken cancellationToken)
+    {
+        await Task.Yield();
+
+        return TypedResults.Ok();
     }
 }

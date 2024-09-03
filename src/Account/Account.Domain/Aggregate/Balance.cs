@@ -1,4 +1,5 @@
 ﻿using Account.Domain.Common;
+using System.Text.RegularExpressions;
 
 namespace Account.Domain.Aggregate;
 
